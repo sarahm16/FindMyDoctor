@@ -5,9 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://use.fontawesome.com/9cae87ff59.js"></script>
     <title>FindMyDoctor Index</title>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="row header">
+            <h2 id="title">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></h2>
+            <h4>An easier way to find the perfect care</h4>
+        </div>
+        <div class="row user-input">
+            <div class="section">
+                <div class="input-field">
+                    <h6 id="input-prompt">Search for providers in your area by specialty:</h6>
+                    <input placeholder="Placeholder" type="text" id="specialty-input">
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="input-field">
+                    <h6 id="input-prompt">Search for providers in your area by symptom:</h6>
+                    <input placeholder="Placeholder" type="text" id="symptom-input">
+                </div>
+            </div>
+
+            <div class="section">
+                <button type="submit" id="submit-input" class="center-align">
+                    Find My Doctor
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
