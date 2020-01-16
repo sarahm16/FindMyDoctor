@@ -28,10 +28,6 @@ h2 {
 }
 
 #submit-input:hover {
-    background-color: rgba(30, 30, 199, 0.493);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
     border-color: #ffb97c;
 }
 
