@@ -1,6 +1,10 @@
 
 //GLOBAL VARIABLES:
 
+$(document).ready(function() {
+ 
+   $(".doctor-results").hide();
+
 let apiKey = "236ad2959b8fdc4ea0843819d69ef3ab";
 let submitBtn = $("#submit-input");
 
@@ -8,6 +12,15 @@ let submitBtn = $("#submit-input");
 
 
 function doctorSearch() {
+  /******Madhavi's changes start */
+
+  //display : none for home-page to show doctor's info on button click
+  
+  
+  $(".home-page").css("display","none");
+  $(".doctor-results").show();
+
+  /******Madhavi's changes end */
     let specialtyInput = $("#specialty-input").val().trim();
     console.log(specialtyInput);
     let symptomInput = $("#symptom-input").val().trim();
@@ -29,3 +42,4 @@ $.ajax({
 
 $(submitBtn).on("click", doctorSearch);
 
+});
