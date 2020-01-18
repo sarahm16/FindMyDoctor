@@ -23,9 +23,8 @@ function doctorSearch() {
   /******Madhavi's changes end */
     let specialtyInput = $("#specialty-input").val().trim();
     console.log(specialtyInput);
-    let symptomInput = $("#symptom-input").val().trim();
-
-    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&query=${symptomInput}&location=37.773,-122.413,100&skip=2&limit=10&user_key=${apiKey}`;
+    let cityInput = $("#city-input").val().trim();
+    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&query=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
     console.log(queryURL);
 $.ajax({
     url: queryURL,
@@ -46,6 +45,8 @@ $.ajax({
       console.log("lon :" + docLon);
       let docNum = response.data[0].practices[0].phones[0].number
       console.log("Number: " + docNum);
+      let docCity = response.data[0].practices[0].visit_address.city
+      console.log("City: " + docCity);
       
 
 
