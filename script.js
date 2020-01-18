@@ -25,7 +25,7 @@ function doctorSearch() {
     console.log(specialtyInput);
     let symptomInput = $("#symptom-input").val().trim();
 
-    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=37.773,-122.413,100&skip=2&limit=10&user_key=${apiKey}`;
+    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&query=${symptomInput}&location=37.773,-122.413,100&skip=2&limit=10&user_key=${apiKey}`;
     console.log(queryURL);
 $.ajax({
     url: queryURL,
