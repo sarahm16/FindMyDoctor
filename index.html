@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://use.fontawesome.com/9cae87ff59.js"></script>
     <title>FindMyDoctor Index</title>
-</head>
+ </head>
 <body>
     <div class="container home-page">
         <div class="row header">
@@ -46,19 +46,24 @@
     </div>
   
     <div class="container doctor-results">
-        <h3 id="doctor-name">Doctor's name</h3>
+        <h3 id="doctor-name"></h3>
         <div id="about-doctor">
-            <p id="specialty">Specialty:</p>
+            <img id="doc-pic"/>
+            <p id="specialty"></p>
             <p id="description">Description:</p>
-            <div id="contact-info">Contact:
-                <p id="clinic">Clinic:</p>
-                <p id="address">Address:</p>
-                <p id="phone-number">Phone:</p>
+            <div id="contact-info"><h6><b>Contact:</b></h6>
+                <p id="clinic"></p>
+                <p id="address"></p>
+                <p id="phone-number"></p>
             </div>
+            <div id="show-map" style="width:500px;height:380px;display: none"></div> <!-- div to show map -->
         </div>
+      
     </div>
-
-    
+<!-- link to add google maps API -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKeg7xZYLsYGiOxtnRKOgXS5UvItT2s8w">
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="script.js"></script>
 </body>
