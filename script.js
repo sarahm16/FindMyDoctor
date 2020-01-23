@@ -28,9 +28,12 @@ $(document).ready(function () {
       .then(function (response) {
         console.log(response);
 
-        let docName = response.data[0].profile["first_name"];
-        console.log("Name: " + docName);
+        let docFirstName = response.data[0].profile["first_name"];
+        
+        let docLastName = response.data[0].profile["last_name"];
 
+        let docName = docFirstName + " " + docLastName
+        console.log("Name: " + docName);
 
         let docSpec = response.data[0].specialties[0].uid;
         console.log("Specialty: " + docSpec);
