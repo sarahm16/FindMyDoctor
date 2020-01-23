@@ -48,7 +48,6 @@ $(document).ready(function () {
         // console.log(response.data.length);
 
 
-
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
       });
