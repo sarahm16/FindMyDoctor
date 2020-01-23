@@ -26,74 +26,30 @@ $(document).ready(function () {
       method: "GET"
     })
       .then(function (response) {
-        console.log(response);
 
-        let docFirstName = response.data[0].profile["first_name"];
-        
-        let docLastName = response.data[0].profile["last_name"];
-
-        let docName = docFirstName + " " + docLastName
-        console.log("Name: " + docName);
-
-        let docSpec = response.data[0].specialties[0].uid;
-        console.log("Specialty: " + docSpec);
-
-
-        let docPicURL = response.data[0].profile["image_url"];
-        console.log("docPicURL " + docPicURL);
-
-        //alt=""
-
-
-        let docClinic = response.data[0].practices[0].name;
-        console.log("Clinic: " + docClinic);
-
-
-        let docLat = response.data[0].practices[0].lat
-        console.log("Lat: " + docLat)
-
-        let docLon = response.data[0].practices[0].lon
-        console.log("lon :" + docLon);
-
-        let docCity = response.data[0].practices[0].visit_address.city
-        console.log("City: " + docCity);
-
-        //address details from API response
-        let docStreet = response.data[0].practices[0].visit_address.street;
-        let docState = response.data[0].practices[0].visit_address.state;
-        let docZip = response.data[0].practices[0].visit_address.zip;
-
-        let docAddress = docStreet + ", " + docCity + " " + docState + " " + docZip;
-
-
-        let docNum = response.data[0].practices[0].phones[0].number
-        console.log("Number: " + docNum);
-
-
-        //updating Doctor details onto the page
-
-        // $("#doctor-name").text(docName); // doctor's name as Heading
-        // $("#specialty").text("Specialty: " + docSpec);// Speciality
-        // $("#doc-pic").attr("src", docPicURL);// doc's image's URL
-        // $("#doc-pic").attr("alt", "Doctor's Pic"); // pic's Alternate ID
-        // $("#clinic").text("Clinic: " + docClinic);//Clinic's name
-        // $("#address").text("Address: " + docAddress);//address info
-        // $("#phone-number").text("Phone: " + docNum);//doc's phone #
-
-        
-        $("#doctor-name").text(docName); // doctor's name as Heading
-        $("#specialty").html("<b> Specialty: </b>" + docSpec);// Speciality
-        $("#doc-pic").attr("src", docPicURL);// doc's image's URL
-        $("#doc-pic").attr("alt", "Doctor's Pic"); // pic's Alternate ID
-        $("#clinic").html("<b> Clinic: </b>" + docClinic);//Clinic's name
-        $("#address").html("<b> Address: </b>" + docAddress);//address info
-        $("#phone-number").html("<b> Phone: </b>" + docNum);//doc's phone #
+        for(let i=0; i<response.data.length; i++) {
+          let results = response.data[i];
+          console.log(results);
+          let newDoctorDiv = $('<h3 class="header">').text(results.profile["first_name"] + ' ' + results.profile["last_name"]);
+          let docSpec = $('<p>').text('Specialty: ' + results.specialties[0].uid);
+          let docClinic = $('<p>').text('Clinic: ' + results.practices[0].name);
+          let docLat = results.practices[0].lat;
+          let docLon = results.practices[0].lon;
+          let docCity = results.practices[0].visit_address.city;
+          let docStreet = results.practices[0].visit_address.street;
+          let docState = results.practices[0].visit_address.state;
+          let docZip = results.practices[0].visit_address.zip;
+          let docAddress = $('<p>').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
+          let docNum = $('<p>').text(`Phone number: ${results.practices[0].phones[0].number}`);
+          let docDescription = $('<p>').text(`Description: ${results.profile.bio}`);
+          $('.doctor-results').append(newDoctorDiv, docSpec, docDescription, docClinic, docAddress, docNum);
+        }
+        // console.log(response);
+        // console.log(response.data.length);
 
 
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
-
-
       });
 
   }
