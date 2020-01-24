@@ -40,8 +40,10 @@ $(document).ready(function () {
 
     /******Madhavi's changes end */
     let specialtyInput = $("#specialty-input").val().trim();
+
     let cityInput = searchLat + "," + searchLon + ",100";
     let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
+
     $.ajax({
       url: queryURL,
       method: "GET"
