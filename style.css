@@ -23,12 +23,21 @@ h2 {
     padding: 30px;
 }
 
-#about-doctor,
-.doctor-results {
+#about-doctor {
     background-color:lightgray;
     color: rgb(92, 92, 92);
     margin-top: 0px;
     padding: 10px 30px 30px 30px;
+}
+
+.doctor-results {
+    background-color:lightgray;
+    color: rgb(92, 92, 92);
+    margin-top: 0px;
+}
+
+.doc-info {
+    padding: 0px 30px 0px 30px;
 }
 
 #submit-input {

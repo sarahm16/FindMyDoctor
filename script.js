@@ -52,22 +52,28 @@ $(document).ready(function () {
     })
       .then(function (response) {
 
+        console.log(response.data.length);
+
+        if(response.data.length == 0) {
+          alert('no results');
+        }
+
         for(let i=0; i<response.data.length; i++) {
           let results = response.data[i];
           console.log(results);
-          let newDoctorDiv = $('<h3 class="header">').text(results.profile["first_name"] + ' ' + results.profile["last_name"]);
-          let docSpec = $('<p>').text('Specialty: ' + results.specialties[0].uid);
-          let docClinic = $('<p>').text('Clinic: ' + results.practices[0].name);
+          let newDocName = $('<h3 class="row header">').text(results.profile["first_name"] + ' ' + results.profile["last_name"]);
+          let docSpec = $('<p class="doc-info">').text('Specialty: ' + results.specialties[0].uid);
+          let docClinic = $('<p class="doc-info">').text('Clinic: ' + results.practices[0].name);
           let docLat = results.practices[0].lat;
           let docLon = results.practices[0].lon;
           let docCity = results.practices[0].visit_address.city;
           let docStreet = results.practices[0].visit_address.street;
           let docState = results.practices[0].visit_address.state;
           let docZip = results.practices[0].visit_address.zip;
-          let docAddress = $('<p>').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
-          let docNum = $('<p>').text(`Phone number: ${results.practices[0].phones[0].number}`);
-          let docDescription = $('<p>').text(`Description: ${results.profile.bio}`);
-          $('.doctor-results').append(newDoctorDiv, docSpec, docDescription, docClinic, docAddress, docNum);
+          let docAddress = $('<p class="doc-info">').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
+          let docNum = $('<p class="doc-info">').text(`Phone number: ${results.practices[0].phones[0].number}`);
+          let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
+          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum);
         }
         // console.log(response);
         // console.log(response.data.length);
