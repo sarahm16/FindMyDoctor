@@ -1,36 +1,58 @@
 
+
 $(document).ready(function () {
 
-  $(".doctor-results").hide();
+  //$(".doctor-results").hide();
 
-  let apiKey = "236ad2959b8fdc4ea0843819d69ef3ab";
+  let apiKey = "6563c971fde154633b460f1d293994c2";
   let submitBtn = $("#submit-input");
 
-  function doctorSearch() {
+  function geocode() {
+    let cityInput = $("#city-input").val().trim();
+    let geocodeURL = `https://us1.locationiq.com/v1/search.php?key=ccf3e521e0553a&q=${cityInput}&format=json`
+    $.ajax({
+      url: geocodeURL,
+      method: "GET"
+    })
+    .then(function (response) {
+      console.log(response);
+      let searchLatString = response[0].lat;
+      let searchLonString = response[0].lon;
+      let searchLat = parseFloat(searchLatString).toFixed(3);
+      let searchLon = parseFloat(searchLonString).toFixed(3);
+      
+      
+      doctorSearch(searchLat, searchLon);
+      console.log(searchLat + "," + searchLon);
+    })
+    
+  }
+  
+  
+  
+  
+  function doctorSearch(searchLat, searchLon) {
     /******Madhavi's changes start */
 
     //display : none for home-page to show doctor's info on button click
-
-
     $(".home-page").css("display", "none");
     $(".doctor-results").show();
 
     /******Madhavi's changes end */
     let specialtyInput = $("#specialty-input").val().trim();
-    console.log(specialtyInput);
-    let cityInput = $("#city-input").val().trim();
-    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&query=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
-    console.log(queryURL);
+    let cityInput = searchLat + "," + searchLon + ",100";
+    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
     $.ajax({
       url: queryURL,
       method: "GET"
     })
       .then(function (response) {
 
-        console.log(response.data.length);
-
+        //if no results are found
         if(response.data.length == 0) {
-          alert('no results');
+          $('.home-page').show();
+          $('.doctor-results').css('display', 'none');
+          $('#no-results').text('No results found, please try again');
         }
 
         for(let i=0; i<response.data.length; i++) {
@@ -50,9 +72,6 @@ $(document).ready(function () {
           let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
           $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum);
         }
-        // console.log(response);
-        // console.log(response.data.length);
-
 
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
@@ -83,5 +102,5 @@ $(document).ready(function () {
   }
 
 
-  $(submitBtn).on("click", doctorSearch);
+  $(submitBtn).on("click", geocode);
 });
