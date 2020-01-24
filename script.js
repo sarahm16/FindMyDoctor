@@ -1,4 +1,5 @@
 
+
 $(document).ready(function () {
 
   $(".doctor-results").hide();
@@ -6,7 +7,31 @@ $(document).ready(function () {
   let apiKey = "236ad2959b8fdc4ea0843819d69ef3ab";
   let submitBtn = $("#submit-input");
 
-  function doctorSearch() {
+  function geocode() {
+    let cityInput = $("#city-input").val().trim();
+    let geocodeURL = `https://us1.locationiq.com/v1/search.php?key=ccf3e521e0553a&q=${cityInput}&format=json`
+    $.ajax({
+      url: geocodeURL,
+      method: "GET"
+    })
+    .then(function (response) {
+      console.log(response);
+      let searchLatString = response[0].lat;
+      let searchLonString = response[0].lon;
+      let searchLat = parseFloat(searchLatString).toFixed(3);
+      let searchLon = parseFloat(searchLonString).toFixed(3);
+      
+      
+      doctorSearch(searchLat, searchLon);
+      console.log(searchLat + "," + searchLon);
+    })
+    
+  }
+  
+  
+  
+  
+  function doctorSearch(searchLat, searchLon) {
     /******Madhavi's changes start */
 
     //display : none for home-page to show doctor's info on button click
@@ -18,8 +43,8 @@ $(document).ready(function () {
     /******Madhavi's changes end */
     let specialtyInput = $("#specialty-input").val().trim();
     console.log(specialtyInput);
-    let cityInput = $("#city-input").val().trim();
-    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&query=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
+    let cityInput = searchLat + "," + searchLon + ",100";
+    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
     console.log(queryURL);
     $.ajax({
       url: queryURL,
@@ -77,5 +102,5 @@ $(document).ready(function () {
   }
 
 
-  $(submitBtn).on("click", doctorSearch);
+  $(submitBtn).on("click", geocode);
 });
