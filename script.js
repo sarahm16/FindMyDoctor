@@ -66,7 +66,7 @@ $(document).ready(function () {
 
         for (let i = 0; i < response.data.length; i++) {
           let results = response.data[i];
-          let newDocName = $('<h3 class="row header">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
+          let newDocName = $('<h3 class="row header" id="docHeader">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
           console.log(results);
           
           for (let i=0; i<results.practices.length; i++) {
