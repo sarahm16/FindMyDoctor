@@ -76,9 +76,3 @@ input:not(.browser-default):focus:not([readonly]) {
     padding: 10px 20px 20px 20px;
     margin: 0px;
 }
-
-/*for find-map button*/
-#find-map{
-    padding : 10px;
-    margin: 20px;
-}
