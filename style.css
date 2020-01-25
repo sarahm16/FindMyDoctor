@@ -92,6 +92,11 @@ input:not(.browser-default):focus:not([readonly]) {
     padding: 10px 20px 20px 20px;
     margin: 0px;
 }
+
+#docHeader {
+cursor: pointer;
+}
+
 .resultDiv {
     display: none;
 }
