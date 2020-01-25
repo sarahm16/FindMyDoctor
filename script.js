@@ -1,7 +1,7 @@
 
 
 $(document).ready(function () {
-
+  $("#city-input").prop('required', true);
   $('#nav-bar').hide();
   //sets local storage
   let emptyArray = [];
@@ -15,6 +15,12 @@ $(document).ready(function () {
   let apiKey = "a078e4d5730633652f2fb1b76ce96dca";
 
   let submitBtn = $("#submit-input");
+
+function start(event){
+  if($("#city-input").val() !== ""){
+  event.preventDefault();
+  geocode();
+}}
 
   function geocode() {
     let cityInput = $("#city-input").val().trim();
@@ -154,7 +160,7 @@ $(document).ready(function () {
   }
 
   $('#home').on('click',function(){location.reload(true)});
-  $(submitBtn).on("click", geocode);
+  $(submitBtn).on("click", start);
   var isDown=true;
   $('.doctor-results').on("click","h3", function(e) {
       if(isDown){
