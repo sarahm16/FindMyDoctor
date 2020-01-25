@@ -68,7 +68,7 @@ $(document).ready(function () {
 
         for (let i = 0; i < response.data.length; i++) {
           let results = response.data[i];
-          let newDocName = $('<h3 class="row header">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
+          let newDocName = $('<h3 class="row header" id="docHeader">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
           console.log(results);
           
           for (let i=0; i<results.practices.length; i++) {
@@ -83,17 +83,17 @@ $(document).ready(function () {
             }
           }
           
-          let docSpec = $('<p class="doc-info">').text('Specialty: ' + results.specialties[0].uid);
-          let docClinic = $('<p class="doc-info">').text('Clinic: ' + results.practices[t].name);
+          let docSpec = $('<p class="doc-info">').html('<b>Specialty: </b>' + results.specialties[0].uid);
+          let docClinic = $('<p class="doc-info">').html('<b>Clinic: </b>' + results.practices[t].name);
           let docLat = results.practices[t].lat;
           let docLon = results.practices[t].lon;
           let docCity = results.practices[t].visit_address.city;
           let docStreet = results.practices[t].visit_address.street;
           let docState = results.practices[t].visit_address.state;
           let docZip = results.practices[t].visit_address.zip;
-          let docAddress = $('<p class="doc-info">').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
-          let docNum = $('<p class="doc-info">').text(`Phone number: ${results.practices[t].phones[0].number}`);
-          let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
+          let docAddress = $('<p class="doc-info">').html(`<b>Address:</b> ${docStreet}, ${docCity} ${docState} ${docZip}`);
+          let docNum = $('<p class="doc-info">').html(`<b>Phone number: </b>${results.practices[t].phones[0].number}`);
+          let docDescription = $('<p class="doc-info">').html(`<b>Description: </b>${results.profile.bio}`);
           let saveBtn = $('<button class="btn waves-effect waves-light">').text('Save to favorites');
           saveBtn.attr('id', 'save-doc');
           saveBtn.attr('class', 'align-center');
@@ -108,8 +108,10 @@ $(document).ready(function () {
           let mapDiv = $("<div>").css({ 'width': '100%', 'height': '25rem', 'display': 'none' }).attr('id', mapID);
           let mapBtn = $('<button type="submit" id = "map-btn" class="center-align">').data({ 'latitude': docLat, 'longitude': docLon, 'map-id': mapID }).text('Show Map');
           mapBtn.on('click', openGoogleMap);
+          let docContainer = $('<div class = "resultDiv">').attr("id", "div"+i);
+          $('.doctor-results').append(newDocName,docContainer);
+          $('#div'+i).append(docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
 
-          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
         }
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
@@ -153,4 +155,16 @@ $(document).ready(function () {
 
   $('#home').on('click',function(){location.reload(true)});
   $(submitBtn).on("click", geocode);
+  var isDown=true;
+  $('.doctor-results').on("click","h3", function(e) {
+      if(isDown){
+        $(this).next().slideUp(1000);
+        isDown=false;
+      }else
+      {
+        $(this).next().slideDown(1000);
+        isDown=true;
+      }
+  
+  });
 });
