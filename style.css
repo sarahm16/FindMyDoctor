@@ -92,6 +92,10 @@ input:not(.browser-default):focus:not([readonly]) {
     padding: 10px 20px 20px 20px;
     margin: 0px;
 }
+
 .resultDiv {
-    display: none;
+    display:none;
+}
+#div0.resultDiv {
+    display:initial;
 }
