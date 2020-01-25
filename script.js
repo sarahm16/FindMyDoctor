@@ -94,6 +94,7 @@ $(document).ready(function () {
           let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
           let saveBtn = $('<button class="btn waves-effect waves-light">').text('Save to favorites');
           saveBtn.attr('id', 'save-doc');
+          saveBtn.attr('class', 'align-center');
           saveBtn.attr('data-name', `${results.profile["first_name"]} ${results.profile["last_name"]}`);
           $(saveBtn).on('click', function() {
             favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.practices[0].name]);
@@ -103,7 +104,7 @@ $(document).ready(function () {
           
           let mapID = 'map' + i;
           let mapDiv = $("<div>").css({ 'width': '100%', 'height': '25rem', 'display': 'none' }).attr('id', mapID);
-          let mapBtn = $('<button type="submit" id = "map-btn" class="btn waves-effect waves-light">').data({ 'latitude': docLat, 'longitude': docLon, 'map-id': mapID }).text('Show Map');
+          let mapBtn = $('<button type="submit" id = "map-btn" class="center-align">').data({ 'latitude': docLat, 'longitude': docLon, 'map-id': mapID }).text('Show Map');
           mapBtn.on('click', openGoogleMap);
 
           $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);

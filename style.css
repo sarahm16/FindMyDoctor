@@ -42,10 +42,26 @@ h2 {
 
 #save-doc {
     margin: 0px 0px 30px 10px;
+    background-color: rgba(30, 30, 199, 0.493);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#save-doc:hover {
+    border-color: #ffb97c;
 }
 
 #map-btn {
     margin: 0px 0px 30px 30px;
+    background-color: rgba(30, 30, 199, 0.493);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#map-btn:hover {
+    border-color: #ffb97c;
 }
 
 #no-results {
