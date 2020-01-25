@@ -92,10 +92,9 @@ $(document).ready(function () {
           let docAddress = $('<p class="doc-info">').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
           let docNum = $('<p class="doc-info">').text(`Phone number: ${results.practices[t].phones[0].number}`);
           let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
-          let saveBtn = $('<button>').text('Save provider to favorites');
+          let saveBtn = $('<button class="btn waves-effect waves-light">').text('Save to favorites');
           saveBtn.attr('id', 'save-doc');
-          saveBtn.attr('data-name', results.profile["first_name"] + ' ' + results.profile["last_name"])
-          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum, saveBtn);
+          saveBtn.attr('data-name', `${results.profile["first_name"]} ${results.profile["last_name"]}`);
           $(saveBtn).on('click', function() {
             favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.practices[0].name]);
             localStorage.setItem('saved-docs', JSON.stringify(favDocs));
@@ -107,7 +106,7 @@ $(document).ready(function () {
           let mapBtn = $('<button type="submit" id = "map-btn" class="btn waves-effect waves-light">').data({ 'latitude': docLat, 'longitude': docLon, 'map-id': mapID }).text('Show Map');
           mapBtn.on('click', openGoogleMap);
 
-          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, mapDiv);
+          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
         }
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
