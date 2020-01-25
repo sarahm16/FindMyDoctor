@@ -106,8 +106,10 @@ $(document).ready(function () {
           let mapDiv = $("<div>").css({ 'width': '100%', 'height': '25rem', 'display': 'none' }).attr('id', mapID);
           let mapBtn = $('<button type="submit" id = "map-btn" class="center-align">').data({ 'latitude': docLat, 'longitude': docLon, 'map-id': mapID }).text('Show Map');
           mapBtn.on('click', openGoogleMap);
+          let docContainer = $('<div class = "resultDiv">').attr("id", i);
+          $('.doctor-results').append(newDocName,docContainer);
+          $('#'+i).append(docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
 
-          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
         }
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
@@ -150,4 +152,16 @@ $(document).ready(function () {
   }
 
   $(submitBtn).on("click", geocode);
+  var isDown=true;
+  $('.doctor-results').on("click","h3", function(e) {
+      if(isDown){
+        $(this).next().slideUp(1000);
+        isDown=false;
+      }else
+      {
+        $(this).next().slideDown(1000);
+        isDown=true;
+      }
+  
+  });
 });
