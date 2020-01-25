@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
 
+  $('#nav-bar').hide();
   //sets local storage
   let emptyArray = [];
   if(localStorage.getItem('saved-docs') == undefined) {
@@ -41,6 +42,7 @@ $(document).ready(function () {
 
     //display : none for home-page to show doctor's info on button click
     $(".home-page").css("display", "none");
+    $('#nav-bar').show();
     $(".doctor-results").show();
 
     /******Madhavi's changes end */
@@ -151,6 +153,7 @@ $(document).ready(function () {
     }
   }
 
+  $('#home').on('click',function(){location.reload(true)});
   $(submitBtn).on("click", geocode);
   var isDown=true;
   $('.doctor-results').on("click","h3", function(e) {
