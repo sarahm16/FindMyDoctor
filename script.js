@@ -42,7 +42,7 @@ $(document).ready(function () {
     let specialtyInput = $("#specialty-input").val().trim();
 
     let cityInput = searchLat + "," + searchLon + ",10";
-    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
+    let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&sort=distance-asc&limit=10&user_key=${apiKey}`;
     let t=0;
 
     $.ajax({
@@ -100,7 +100,7 @@ $(document).ready(function () {
     console.log("type of latitude " + longitude);
 
     var myLatLang = { lat: latitude, lng: longitude };
-    var _map = new google.maps.Map(document.getElementById("show-map"), { zoom: 5, center: myLatLang });
+    var _map = new google.maps.Map(document.getElementById("show-map"), { zoom: 15, center: myLatLang });
 
     var marker = new google.maps.Marker({ position: myLatLang, map: _map });
 
