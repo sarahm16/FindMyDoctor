@@ -43,6 +43,7 @@ $(document).ready(function () {
 
     let cityInput = searchLat + "," + searchLon + ",100";
     let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
+    let t=0;
 
     $.ajax({
       url: queryURL,
@@ -60,17 +61,28 @@ $(document).ready(function () {
         for(let i=0; i<response.data.length; i++) {
           let results = response.data[i];
           console.log(results);
+          for (let i=0; i<results.practices.length; i++) {
+            console.log(results.practices[i].visit_address.zip);
+            if (results.practices[i].visit_address.zip == cityInput) {
+              t= i;
+              console.log(t);
+              break;
+            }
+            else {
+              t=0;
+            }
+          }
           let newDocName = $('<h3 class="row header">').text(results.profile["first_name"] + ' ' + results.profile["last_name"]);
           let docSpec = $('<p class="doc-info">').text('Specialty: ' + results.specialties[0].uid);
-          let docClinic = $('<p class="doc-info">').text('Clinic: ' + results.practices[0].name);
-          let docLat = results.practices[0].lat;
-          let docLon = results.practices[0].lon;
-          let docCity = results.practices[0].visit_address.city;
-          let docStreet = results.practices[0].visit_address.street;
-          let docState = results.practices[0].visit_address.state;
-          let docZip = results.practices[0].visit_address.zip;
+          let docClinic = $('<p class="doc-info">').text('Clinic: ' + results.practices[t].name);
+          let docLat = results.practices[t].lat;
+          let docLon = results.practices[t].lon;
+          let docCity = results.practices[t].visit_address.city;
+          let docStreet = results.practices[t].visit_address.street;
+          let docState = results.practices[t].visit_address.state;
+          let docZip = results.practices[t].visit_address.zip;
           let docAddress = $('<p class="doc-info">').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
-          let docNum = $('<p class="doc-info">').text(`Phone number: ${results.practices[0].phones[0].number}`);
+          let docNum = $('<p class="doc-info">').text(`Phone number: ${results.practices[t].phones[0].number}`);
           let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
           $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum);
         }
