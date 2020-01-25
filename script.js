@@ -41,7 +41,7 @@ $(document).ready(function () {
     /******Madhavi's changes end */
     let specialtyInput = $("#specialty-input").val().trim();
 
-    let cityInput = searchLat + "," + searchLon + ",100";
+    let cityInput = searchLat + "," + searchLon + ",10";
     let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&limit=10&user_key=${apiKey}`;
     let t=0;
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
           console.log(results);
           for (let i=0; i<results.practices.length; i++) {
             console.log(results.practices[i].visit_address.zip);
-            if (results.practices[i].visit_address.zip == cityInput) {
+            if (results.practices[i].within_search_area== true) {
               t= i;
               console.log(t);
               break;
