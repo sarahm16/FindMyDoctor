@@ -40,6 +40,14 @@ h2 {
     padding: 0px 30px 0px 30px;
 }
 
+#save-doc {
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
 #no-results {
     color: red;
 }
@@ -67,10 +75,4 @@ input:not(.browser-default):focus:not([readonly]) {
     color: white;
     padding: 10px 20px 20px 20px;
     margin: 0px;
-}
-
-/*for find-map button*/
-#find-map{
-    padding : 10px;
-    margin: 20px;
 }
