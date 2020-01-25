@@ -81,17 +81,17 @@ $(document).ready(function () {
             }
           }
           
-          let docSpec = $('<p class="doc-info">').text('Specialty: ' + results.specialties[0].uid);
-          let docClinic = $('<p class="doc-info">').text('Clinic: ' + results.practices[t].name);
+          let docSpec = $('<p class="doc-info">').html('<b>Specialty: </b>' + results.specialties[0].uid);
+          let docClinic = $('<p class="doc-info">').html('<b>Clinic: </b>' + results.practices[t].name);
           let docLat = results.practices[t].lat;
           let docLon = results.practices[t].lon;
           let docCity = results.practices[t].visit_address.city;
           let docStreet = results.practices[t].visit_address.street;
           let docState = results.practices[t].visit_address.state;
           let docZip = results.practices[t].visit_address.zip;
-          let docAddress = $('<p class="doc-info">').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
-          let docNum = $('<p class="doc-info">').text(`Phone number: ${results.practices[t].phones[0].number}`);
-          let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
+          let docAddress = $('<p class="doc-info">').html(`<b>Address:</b> ${docStreet}, ${docCity} ${docState} ${docZip}`);
+          let docNum = $('<p class="doc-info">').html(`<b>Phone number: </b>${results.practices[t].phones[0].number}`);
+          let docDescription = $('<p class="doc-info">').html(`<b>Description: </b>${results.profile.bio}`);
           let saveBtn = $('<button class="btn waves-effect waves-light">').text('Save to favorites');
           saveBtn.attr('id', 'save-doc');
           saveBtn.attr('class', 'align-center');
