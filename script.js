@@ -2,9 +2,17 @@
 
 $(document).ready(function () {
 
-  //$(".doctor-results").hide();
+  //sets local storage
+  let emptyArray = [];
+  if(localStorage.getItem('saved-docs') == undefined) {
+    localStorage.setItem('saved-docs', JSON.stringify(emptyArray));
+  }
+  //creates an array of favorite doctors from local storage
+  let favDocs = JSON.parse(localStorage.getItem('saved-docs'));
 
-  let apiKey = "6563c971fde154633b460f1d293994c2";
+  //api key for better doctor
+  let apiKey = "a078e4d5730633652f2fb1b76ce96dca";
+
   let submitBtn = $("#submit-input");
 
   function geocode() {
@@ -27,10 +35,7 @@ $(document).ready(function () {
     })
     
   }
-  
-  
-  
-  
+    
   function doctorSearch(searchLat, searchLon) {
     /******Madhavi's changes start */
 
@@ -50,7 +55,7 @@ $(document).ready(function () {
     })
       .then(function (response) {
 
-        //if no results are found
+        //alert user if no results are found
         if(response.data.length == 0) {
           $('.home-page').show();
           $('.doctor-results').css('display', 'none');
@@ -59,8 +64,7 @@ $(document).ready(function () {
 
         for(let i=0; i<response.data.length; i++) {
           let results = response.data[i];
-          console.log(results);
-          let newDocName = $('<h3 class="row header">').text(results.profile["first_name"] + ' ' + results.profile["last_name"]);
+          let newDocName = $('<h3 class="row header">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
           let docSpec = $('<p class="doc-info">').text('Specialty: ' + results.specialties[0].uid);
           let docClinic = $('<p class="doc-info">').text('Clinic: ' + results.practices[0].name);
           let docLat = results.practices[0].lat;
@@ -72,9 +76,16 @@ $(document).ready(function () {
           let docAddress = $('<p class="doc-info">').text(`Address: ${docStreet}, ${docCity} ${docState} ${docZip}`);
           let docNum = $('<p class="doc-info">').text(`Phone number: ${results.practices[0].phones[0].number}`);
           let docDescription = $('<p class="doc-info">').text(`Description: ${results.profile.bio}`);
-          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum);
+          let saveBtn = $('<button>').text('Save provider to favorites');
+          saveBtn.attr('id', 'save-doc');
+          saveBtn.attr('data-name', results.profile["first_name"] + ' ' + results.profile["last_name"])
+          $('.doctor-results').append(newDocName, docSpec, docDescription, docClinic, docAddress, docNum, saveBtn);
+          $(saveBtn).on('click', function() {
+            favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.practices[0].name]);
+            localStorage.setItem('saved-docs', JSON.stringify(favDocs));
+            console.log(favDocs);
+          })
         }
-
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
       });
@@ -102,7 +113,6 @@ $(document).ready(function () {
     var map = initialize(loc_latitude, loc_longitude);
     google.maps.event.trigger(map, "resize");
   }
-
 
   $(submitBtn).on("click", geocode);
 });
