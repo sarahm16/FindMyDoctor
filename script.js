@@ -118,7 +118,7 @@ $(document).ready(function () {
   //initialize() creates map and marker objects and returns them.
   function initialize(latitude, longitude, map_id) {
     var myLatLang = { lat: latitude, lng: longitude };
-    var _map = new google.maps.Map(document.getElementById("show-map"), { zoom: 15, center: myLatLang });
+    var _map = new google.maps.Map(document.querySelector(map_id), { zoom: 15, center: myLatLang });
 
 
     var marker = new google.maps.Marker({ position: myLatLang, map: _map });
