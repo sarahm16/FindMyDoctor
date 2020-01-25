@@ -106,9 +106,9 @@ $(document).ready(function () {
           let mapDiv = $("<div>").css({ 'width': '100%', 'height': '25rem', 'display': 'none' }).attr('id', mapID);
           let mapBtn = $('<button type="submit" id = "map-btn" class="center-align">').data({ 'latitude': docLat, 'longitude': docLon, 'map-id': mapID }).text('Show Map');
           mapBtn.on('click', openGoogleMap);
-          let docContainer = $('<div class = "resultDiv">').attr("id", i);
+          let docContainer = $('<div class = "resultDiv">').attr("id", "div"+i);
           $('.doctor-results').append(newDocName,docContainer);
-          $('#'+i).append(docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
+          $('#div'+i).append(docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
 
         }
         // function to open Google map for the latitude and longitude from API response. 
