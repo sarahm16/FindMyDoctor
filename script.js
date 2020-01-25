@@ -44,8 +44,8 @@ $(document).ready(function () {
     $(".doctor-results").show();
 
     /******Madhavi's changes end */
-    let specialtyInput = $("#specialty-input").val().trim();
-
+    //Replacing the white spaces with '-'  for Speciality input entered by the user and changing the input to lowercase
+    let specialtyInput =$("#specialty-input").val().trim().replace(/ /g, "-").toLowerCase();
     let cityInput = searchLat + "," + searchLon + ",10";
     let queryURL = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialtyInput}&location=${cityInput}&skip=2&sort=distance-asc&limit=10&user_key=${apiKey}`;
     let t=0;
@@ -111,6 +111,12 @@ $(document).ready(function () {
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
       });
+
+  }
+
+  function removeAndReplaceWhiteSpaces(specialityInput)
+  {
+    var newStr = specialityInput.replace(/ /g, "-");
 
   }
 
