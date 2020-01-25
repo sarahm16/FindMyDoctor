@@ -10,6 +10,17 @@
     <title>FindMyDoctor Index</title>
  </head>
 <body>
+    <div class="navbar-fixed"  id="nav-bar">
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo left">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a id="home" >Home</a></li>
+            <li><a id="favourites">Favourites</a></li>
+         </ul>
+        </div>
+      </nav>
+    </div>
     <div class="container home-page">
         <div class="row header">
             <h2 id="title">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></h2>
@@ -26,7 +37,7 @@
             <div class="section">
                 <div class="input-field">
                     <h6 id="input-prompt">Please enter your city:</h6>
-                    <input type="text" id="city-input">
+                    <input type="text" id="city-input" required>
                 </div>
             </div>
 
@@ -41,7 +52,7 @@
     </div>
   
     <div class="container doctor-results">
-        <!-- <div id="show-map" style="width:500px;height:380px;display: none"></div> -->
+      
     </div>
       
     </div>

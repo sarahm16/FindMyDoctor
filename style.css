@@ -92,3 +92,11 @@ input:not(.browser-default):focus:not([readonly]) {
     padding: 10px 20px 20px 20px;
     margin: 0px;
 }
+
+nav{
+
+    background-color: white;
+}
+
+nav ul li,.nav-wrapper a,nav ul li a{
+    color:#ffb97c;}
