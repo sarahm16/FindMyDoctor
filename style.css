@@ -8,6 +8,10 @@
     border-bottom: 2px solid rgb(92, 92, 92);
 }
 
+#nav-logo {
+    padding-left: 30px;
+}
+
 h4,
 h2 {
     text-align: center;
@@ -41,21 +45,14 @@ h2 {
     padding: 0px 30px 0px 30px;
 }
 
-#save-doc {
-    margin: 0px 0px 30px 10px;
-    background-color: rgba(30, 30, 199, 0.493);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-}
-
 #save-doc:hover {
     border-color: #ffb97c;
 }
 
-#map-btn {
+#map-btn,
+#save-doc {
     margin: 0px 0px 30px 30px;
-    background-color: rgba(30, 30, 199, 0.493);
+    background-color: rgba(88, 88, 230, 0.493);
     color: white;
     padding: 10px;
     border-radius: 5px;
@@ -90,7 +87,9 @@ nav{
     background-color: white;
 }
 
-nav ul li,.nav-wrapper a,nav ul li a{
+nav ul li,
+.nav-wrapper a,
+nav ul li a{
     color:#ffb97c;
 }
 
