@@ -71,6 +71,7 @@ function start(event){
           $('.home-page').show();
           $('.doctor-results').css('display', 'none');
           $('#no-results').text('No results found, please try again');
+          $('#nav-bar').hide();
         }
 
         for (let i = 0; i < response.data.length; i++) {
