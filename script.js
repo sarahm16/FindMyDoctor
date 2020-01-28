@@ -21,6 +21,12 @@ function start(event){
   geocode();
 }}
 
+function start(event){
+  if($("#city-input").val() !== ""){
+  event.preventDefault();
+  geocode();
+}}
+
   function geocode() {
     let cityInput = $("#city-input").val().trim();
     let geocodeURL = `https://us1.locationiq.com/v1/search.php?key=ccf3e521e0553a&q=${cityInput}&format=json`
@@ -168,11 +174,11 @@ function start(event){
   var isDown=true;
   $('.doctor-results').on("click","h3", function(e) {
       if(isDown){
-        $(this).next().slideUp(1000);
+        $(this).next().slideUp(500);
         isDown=false;
       }else
       {
-        $(this).next().slideDown(1000);
+        $(this).next().slideDown(500);
         isDown=true;
       }
   
