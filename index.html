@@ -11,15 +11,15 @@
  </head>
 <body>
     <div class="navbar-fixed"  id="nav-bar">
-    <nav>
-        <div class="nav-wrapper">
-          <a id="nav-logo" class="brand-logo left">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a id="home" >Home</a></li>
-            <li><a id="favourites">Favourites</a></li>
-         </ul>
-        </div>
-      </nav>
+        <nav>
+            <div class="nav-wrapper">
+                <a id="nav-logo" class="brand-logo left">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a id="home" >Home</a></li>
+                    <li><a id="favourites">Favourites</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
     <div class="container home-page">
         <div class="row header">
@@ -27,35 +27,37 @@
             <h4>An easier way to find the perfect care</h4>
         </div>
         <div class="row user-input">
-            <div class="section">
-                <div class="input-field">
-                    <h6 id="input-prompt">Search for providers in your area by specialty:</h6>
-                    <input type="text" id="specialty-input">
+            <form>
+                <div class="section">
+                    <div class="input-field">
+                        <h6 id="input-prompt">Search for providers in your area by specialty:</h6>
+                        <input type="text" id="specialty-input">
+                    </div>
                 </div>
-            </div>
-
-            <div class="section">
-                <div class="input-field">
-                    <h6 id="input-prompt">Please enter your city:</h6>
-                    <input type="text" id="city-input" required>
+                <div class="section">
+                    <div class="input-field">
+                        <h6 id="input-prompt">Please enter your city:</h6>
+                        <input type="text" id="city-input" required>
+                    </div>
                 </div>
-            </div>
-
-            <div id="no-results"></div>
-
-            <div class="section">
-                <button type="submit" id="submit-input" class="center-align">
-                    Find My Doctor 
-                </button>
-            </div>
+                <div id="no-results"></div>
+                <div class="section">
+                    <input type="submit" id="submit-input" class="center-align" value="Find My Doctor">
+                    <button id="home-fav-button">Favorites <i class="fa fa-star"></i></button>
+                </div>
+            </form>
         </div>
     </div>
   
-    <div class="container doctor-results">
-      
+    <div class="container doctor-results"></div>
+
+    <div class="container favorites-div">
+        <div class="row header">
+            <h2 id="title">Favorite Doctors <i class="fa fa-stethoscope" aria-hidden="true"></i></h2>
+        </div>
     </div>
       
-    </div>
+</div>
 <!-- link to add google maps API -->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA12XNTD67D-ExECp1rljWz6G3IOhOzubg">
