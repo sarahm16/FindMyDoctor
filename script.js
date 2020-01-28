@@ -74,10 +74,12 @@ function start(event){
           $('.home-page').show();
           $('.doctor-results').css('display', 'none');
           $('#no-results').text('No results found, please try again');
+          $('#nav-bar').hide();
         }
 
         for (let i = 0; i < response.data.length; i++) {
           let results = response.data[i];
+          console.log(results);
           let newDocName = $('<h3 class="row header" id="docHeader">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
           
           for (let i=0; i<results.practices.length; i++) {
@@ -102,7 +104,10 @@ function start(event){
           let docZip = results.practices[t].visit_address.zip;
           let docAddress = $('<p class="doc-info">').html(`<b>Address:</b> ${docStreet}, ${docCity} ${docState} ${docZip}`);
           let docNum = $('<p class="doc-info">').html(`<b>Phone number: </b>${results.practices[t].phones[0].number}`);
-          let docDescription = $('<p class="doc-info">').html(`<b>Description: </b>${results.profile.bio}`);
+          let docDescription = $('<p class="doc-info">')
+          if(results.profile.bio != '') {
+            docDescription.html(`<b>Description: </b>${results.profile.bio}`);
+          }
           let saveBtn = $('<button class="btn waves-effect waves-light">').text('Save to favorites');
           saveBtn.attr('id', 'save-doc');
           saveBtn.attr('class', 'align-center');
@@ -193,11 +198,11 @@ function start(event){
   var isDown=true;
   $('.doctor-results').on("click","h3", function(e) {
       if(isDown){
-        $(this).next().slideUp(1000);
+        $(this).next().slideUp(500);
         isDown=false;
       }else
       {
-        $(this).next().slideDown(1000);
+        $(this).next().slideDown(500);
         isDown=true;
       }
   
