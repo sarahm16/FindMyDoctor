@@ -66,11 +66,17 @@ h2 {
     color: red;
 }
 
-#submit-input {
+#submit-input,
+#home-fav-button {
     background-color: rgba(30, 30, 199, 0.493);
     color: white;
     padding: 10px;
     border-radius: 5px;
+}
+
+#home-fav-button {
+    display: block;
+    float: right;
 }
 
 #submit-input:hover {

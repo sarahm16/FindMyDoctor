@@ -3,6 +3,7 @@
 $(document).ready(function () {
   $("#city-input").prop('required', true);
   $('#nav-bar').hide();
+  $('.favorites-div').hide();
   //sets local storage
   let emptyArray = [];
   if(localStorage.getItem('saved-docs') == undefined) {
@@ -14,7 +15,11 @@ $(document).ready(function () {
   //api key for better doctor
   let apiKey = "a078e4d5730633652f2fb1b76ce96dca";
 
-  let submitBtn = $("#submit-input");
+function start(event){
+  if($("#city-input").val() !== ""){
+  event.preventDefault();
+  geocode();
+}}
 
 function start(event){
   if($("#city-input").val() !== ""){
@@ -30,15 +35,12 @@ function start(event){
       method: "GET"
     })
       .then(function (response) {
-        console.log(response);
         let searchLatString = response[0].lat;
         let searchLonString = response[0].lon;
         let searchLat = parseFloat(searchLatString).toFixed(3);
         let searchLon = parseFloat(searchLonString).toFixed(3);
 
-
         doctorSearch(searchLat, searchLon);
-        console.log(searchLat + "," + searchLon);
       })
 
   }
@@ -64,7 +66,6 @@ function start(event){
     })
       .then(function (response) {
 
-
         //alert user if no results are found
         if(response.data.length == 0) {
           $('.home-page').show();
@@ -75,13 +76,11 @@ function start(event){
         for (let i = 0; i < response.data.length; i++) {
           let results = response.data[i];
           let newDocName = $('<h3 class="row header" id="docHeader">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
-          console.log(results);
           
           for (let i=0; i<results.practices.length; i++) {
             console.log(results.practices[i].visit_address.zip);
             if (results.practices[i].within_search_area== true) {
               t= i;
-              console.log(t);
               break;
             }
             else {
@@ -89,6 +88,7 @@ function start(event){
             }
           }
           
+          //retrieves desired information from JSON object for each doctor
           let docSpec = $('<p class="doc-info">').html('<b>Specialty: </b>' + results.specialties[0].uid);
           let docClinic = $('<p class="doc-info">').html('<b>Clinic: </b>' + results.practices[t].name);
           let docLat = results.practices[t].lat;
@@ -105,9 +105,8 @@ function start(event){
           saveBtn.attr('class', 'align-center');
           saveBtn.attr('data-name', `${results.profile["first_name"]} ${results.profile["last_name"]}`);
           $(saveBtn).on('click', function() {
-            favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.practices[0].name]);
+            favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.specialties[0].uid]);
             localStorage.setItem('saved-docs', JSON.stringify(favDocs));
-            console.log(favDocs);
           })
           
           let mapID = 'map' + i;
@@ -117,26 +116,20 @@ function start(event){
           let docContainer = $('<div class = "resultDiv">').attr("id", "div"+i);
           $('.doctor-results').append(newDocName,docContainer);
           $('#div'+i).append(docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
-
         }
         // function to open Google map for the latitude and longitude from API response. 
         openGoogleMap(docLon, docLat);
       });
-
   }
 
-  function removeAndReplaceWhiteSpaces(specialityInput)
-  {
+  function removeAndReplaceWhiteSpaces(specialityInput) {
     var newStr = specialityInput.replace(/ /g, "-");
-
   }
 
   //initialize() creates map and marker objects and returns them.
   function initialize(latitude, longitude, map_id) {
     var myLatLang = { lat: latitude, lng: longitude };
     var _map = new google.maps.Map(document.querySelector(map_id), { zoom: 15, center: myLatLang });
-
-
     var marker = new google.maps.Marker({ position: myLatLang, map: _map });
     return marker;
   }
@@ -159,8 +152,21 @@ function start(event){
     }
   }
 
+  function displayFavorites() {
+    $('.doctor-results').css('display', 'none');
+    $('.favorites-div').show();
+    for(let i=0; i<favDocs.length; i++) {
+      let name = favDocs[i][0];
+      let specialty = favDocs[i][2];
+      let phoneNumber = favDocs[i][1];
+      let favDocDiv = $('<div>');
+      favDocDiv.append(`Provider: ${name}, Specialty: ${specialty}, Contact: ${phoneNumber}`);
+      $('.favorites-div').append(favDocDiv);
+    }
+  }
+
   $('#home').on('click',function(){location.reload(true)});
-  $(submitBtn).on("click", start);
+  $("#submit-input").on("click", start);
   var isDown=true;
   $('.doctor-results').on("click","h3", function(e) {
       if(isDown){
@@ -173,4 +179,9 @@ function start(event){
       }
   
   });
+
+  $('#favourites').on('click', function() {
+    displayFavorites();
+  })
+
 });
