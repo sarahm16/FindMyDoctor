@@ -21,6 +21,12 @@ function start(event){
   geocode();
 }}
 
+function start(event){
+  if($("#city-input").val() !== ""){
+  event.preventDefault();
+  geocode();
+}}
+
   function geocode() {
     let cityInput = $("#city-input").val().trim();
     let geocodeURL = `https://us1.locationiq.com/v1/search.php?key=ccf3e521e0553a&q=${cityInput}&format=json`
