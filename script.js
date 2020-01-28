@@ -170,11 +170,11 @@ function start(event){
   var isDown=true;
   $('.doctor-results').on("click","h3", function(e) {
       if(isDown){
-        $(this).next().slideUp(1000);
+        $(this).next().slideUp(500);
         isDown=false;
       }else
       {
-        $(this).next().slideDown(1000);
+        $(this).next().slideDown(500);
         isDown=true;
       }
   
