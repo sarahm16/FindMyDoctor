@@ -17,6 +17,11 @@ User is required to search for health providers by location with the option of a
 
 Our search results are displayed in a list of clickable doctor names. Each name when clicked slides down with the specified doctors detailed information. This includes specialty, description, clinic, address, phone number, and the option of a map provided by google maps API.
 
+# Our Favorite Doctors List
+![](images/favorite.png)
+
+Our favorites list is deisplayed similarly to our results list and is populated though local storage. Once the user adds a doctor to the list, it should be there whenever they load the page.
+
 # Utilized Technologies
 
 LocationIQ: https://locationiq.com/
