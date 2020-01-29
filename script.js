@@ -1,11 +1,13 @@
 
 
 $(document).ready(function () {
+  $('.sidenav').sidenav();
   $("#city-input").prop('required', true);
-  $('#nav-bar').hide();
+ // $('#nav-bar').hide();
   $('.favorites-div').hide();
   //sets local storage
   let emptyArray = [];
+  let pageFlag = "home";
   if(localStorage.getItem('saved-docs') == undefined) {
     localStorage.setItem('saved-docs', JSON.stringify(emptyArray));
   }
@@ -52,6 +54,7 @@ function start(event){
     $(".home-page").css("display", "none");
     $('#nav-bar').show();
     $(".doctor-results").show();
+    pageFlag = "results";
 
     /******Madhavi's changes end */
     //Replacing the white spaces with '-'  for Speciality input entered by the user and changing the input to lowercase
@@ -157,16 +160,36 @@ function start(event){
     }
   }
 
-  function displayFavorites() {
-    $('.doctor-results').css('display', 'none');
-    $('.favorites-div').show();
-    for(let i=0; i<favDocs.length; i++) {
+  function displayFavorites(page) {
+
+    let favDiv = $('.favorites-div');
+    let collapsible = $('.collapsible');
+    collapsible.empty();
+    if (pageFlag === 'home') {
+      $('.home-page').css('display', 'none');
+    }
+    else {
+
+      $('.doctor-results').css('display', 'none');
+    }
+    $('#nav-bar').show();
+
+    favDiv.show();
+    for (let i = 0; i < favDocs.length; i++) {
+
       let name = favDocs[i][0];
       let specialty = favDocs[i][2];
       let phoneNumber = favDocs[i][1];
       let favDocDiv = $('<div>');
-      favDocDiv.append(`Provider: ${name}, Specialty: ${specialty}, Contact: ${phoneNumber}`);
-      $('.favorites-div').append(favDocDiv);
+      let eachDoc = $('<li>');
+      let docName = $('<div class="collapsible-header">').html(`<h5 class="center-align"><b>${name}</b></h5>`).css('background-color','rgb(189, 189, 245)');
+      let docDetails = $('<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>').html('Specialty: ' + specialty + '</br>' + 'Contact: ' + phoneNumber).css('background-color','rgb(230, 230, 230)');
+      eachDoc.append(docName, docDetails);
+      collapsible.append(eachDoc);
+      collapsible.collapsible();
+      favDocDiv.append(collapsible);
+      //  favDocDiv.append(`Provider: ${name}, Specialty: ${specialty}, Contact: ${phoneNumber}`);
+      favDiv.append(favDocDiv);
     }
   }
 
@@ -185,8 +208,12 @@ function start(event){
   
   });
 
-  $('#favourites').on('click', function() {
-    displayFavorites();
+  $('#favorites').on('click', function() {
+    // alert("ncsjcnsjxc")
+    // $('.favorites-div').empty();
+    displayFavorites($(this).attr("data-page"));
   })
+
+ 
 
 });
