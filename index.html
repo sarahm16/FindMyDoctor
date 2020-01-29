@@ -4,52 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
     <link rel="stylesheet" href="style.css">
     <script src="https://use.fontawesome.com/9cae87ff59.js"></script>
     <title>FindMyDoctor Index</title>
  </head>
 <body>
+    <div class="navbar-fixed" id="nav-bar">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="container-fluid">
+                    <a id="nav-logo" class="brand-logo row">
+                        <i class="fa fa-stethoscope" id="nav-icon" aria-hidden="true"></i>
+                        FindMyDoctor
+                    </a>
+
+                    <a href="#" class="sidenav-trigger" data-target="slide-out"><i class="material-icons">menu</i></a>
+
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="home  waves-effect">Home</a></li>
+                        <li><a class="favorites  waves-effect">Favorites</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <ul id="slide-out" class="sidenav">
+        <li><a class="home  waves-effect sidenav-close">Home</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="favorites  waves-effect sidenav-close">Favorites</a></li>
+    </ul>
     <div class="container home-page">
         <div class="row header">
             <h2 id="title">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></h2>
             <h4>An easier way to find the perfect care</h4>
         </div>
         <div class="row user-input">
-            <div class="section">
-                <div class="input-field">
-                    <h6 id="input-prompt">Search for providers in your area by specialty:</h6>
-                    <input type="text" id="specialty-input">
+            <form>
+                <div class="section">
+                    <div class="input-field">
+                        <h6 id="input-prompt">Search for providers in your area by specialty:</h6>
+                        <input type="text" id="specialty-input">
+                    </div>
                 </div>
-            </div>
-
-            <div class="section">
-                <div class="input-field">
-                    <h6 id="input-prompt">Please enter your city:</h6>
-                    <input type="text" id="city-input">
+                <div class="section">
+                    <div class="input-field">
+                        <h6 id="input-prompt">Please enter your city:</h6>
+                        <input type="text" id="city-input" required>
+                    </div>
                 </div>
-            </div>
-
-            <div id="no-results"></div>
-
-            <div class="section">
-                <button type="submit" id="submit-input" class="center-align">
-                    Find My Doctor 
-                </button>
-            </div>
+                <div id="no-results"></div>
+                <div class="section">
+                    <input type="submit" id="submit-input" class="center-align" value="Find My Doctor">
+                    <!-- <button id="home-fav-button"  data-page="homePage">Favorites <i class="fa fa-star"></i></button> -->
+                </div>
+            </form>
         </div>
     </div>
   
-    <div class="container doctor-results">
-        <!-- <div id="show-map" style="width:500px;height:380px;display: none"></div> -->
+    <div class="container doctor-results"></div>
+
+    <div class="container favorites-div">
+        <div class="row header">
+            <h2 id="title">Favorite Doctors <i class="fa fa-stethoscope" aria-hidden="true"></i></h2>
+        </div>
+        <ul class="collapsible" >
+
+        </ul>
     </div>
       
-    </div>
+</div>
 <!-- link to add google maps API -->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA12XNTD67D-ExECp1rljWz6G3IOhOzubg">
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Compiled and minified JavaScript -->   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        
     <script src="script.js"></script>
 </body>
 </html>
