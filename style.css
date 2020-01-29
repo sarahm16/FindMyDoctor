@@ -10,6 +10,7 @@
 
 #nav-logo {
     padding-left: 30px;
+    display : flex;
 }
 #nav-icon{
     margin-bottom: 0rem;
@@ -112,3 +113,28 @@ cursor: pointer;
 #div0.resultDiv {
     display:initial;
 }
+
+/* media query to set smaller font-size for small screens for Page Heading */
+
+
+
+@media screen and (max-width: 378px) {
+    #title {
+      
+      font-size : 2.28rem;
+    }
+  }
+
+
+  @media screen and (max-width: 600px) {
+    #title {
+      
+      font-size : 2.28rem;
+    }
+    nav .brand-logo #nav-icon{
+margin-top: 1rem;
+    
+    }
+  }
+
+ 

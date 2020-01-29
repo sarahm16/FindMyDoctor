@@ -1,12 +1,11 @@
 
 
 $(document).ready(function () {
-  $('.sidenav').sidenav();
+ $('.sidenav').sidenav(); //to initialize the side navbar fro small screens
   $("#city-input").prop('required', true);
- // $('#nav-bar').hide();
   $('.favorites-div').hide();
   //sets local storage
-  let emptyArray = [];
+  let emptyArray = []; 
   let pageFlag = "home";
   if(localStorage.getItem('saved-docs') == undefined) {
     localStorage.setItem('saved-docs', JSON.stringify(emptyArray));
@@ -112,10 +111,19 @@ function start(event){
           saveBtn.attr('id', 'save-doc');
           saveBtn.attr('class', 'align-center');
           saveBtn.attr('data-name', `${results.profile["first_name"]} ${results.profile["last_name"]}`);
+
           $(saveBtn).on('click', function() {
-            favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.specialties[0].uid]);
-            localStorage.setItem('saved-docs', JSON.stringify(favDocs));
-          })
+            let favDocs_string = JSON.stringify(favDocs);
+            let entry = [saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.specialties[0].uid];
+            entry = JSON.stringify(entry);
+            let check = favDocs_string.indexOf(entry);
+            if (check == -1) {
+              favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.specialties[0].uid]);
+              localStorage.setItem('saved-docs', JSON.stringify(favDocs));
+            }
+            else console.log("Duplicate");
+            
+          });
           
           let mapID = 'map' + i;
           let mapDiv = $("<div>").css({ 'width': '100%', 'height': '25rem', 'display': 'none' }).attr('id', mapID);
@@ -126,13 +134,11 @@ function start(event){
           $('#div'+i).append(docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
         }
         // function to open Google map for the latitude and longitude from API response. 
-        openGoogleMap(docLon, docLat);
+      //  openGoogleMap(docLon, docLat);
       });
   }
 
-  function removeAndReplaceWhiteSpaces(specialityInput) {
-    var newStr = specialityInput.replace(/ /g, "-");
-  }
+ 
 
   //initialize() creates map and marker objects and returns them.
   function initialize(latitude, longitude, map_id) {
@@ -160,8 +166,8 @@ function start(event){
     }
   }
 
-  function displayFavorites(page) {
-
+  function displayFavorites() {
+    
     let favDiv = $('.favorites-div');
     let collapsible = $('.collapsible');
     collapsible.empty();
@@ -173,6 +179,7 @@ function start(event){
       $('.doctor-results').css('display', 'none');
     }
     $('#nav-bar').show();
+    
 
     favDiv.show();
     for (let i = 0; i < favDocs.length; i++) {
@@ -183,17 +190,16 @@ function start(event){
       let favDocDiv = $('<div>');
       let eachDoc = $('<li>');
       let docName = $('<div class="collapsible-header">').html(`<h5 class="center-align"><b>${name}</b></h5>`).css('background-color','rgb(189, 189, 245)');
-      let docDetails = $('<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>').html('Specialty: ' + specialty + '</br>' + 'Contact: ' + phoneNumber).css('background-color','rgb(230, 230, 230)');
+      let docDetails = $('<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>').html('<b>Specialty: </b>' + specialty + '</br>' + '<b>Contact: </b>' + phoneNumber).css('background-color','rgb(230, 230, 230)');
       eachDoc.append(docName, docDetails);
       collapsible.append(eachDoc);
       collapsible.collapsible();
       favDocDiv.append(collapsible);
-      //  favDocDiv.append(`Provider: ${name}, Specialty: ${specialty}, Contact: ${phoneNumber}`);
       favDiv.append(favDocDiv);
     }
   }
 
-  $('#home').on('click',function(){location.reload(true)});
+  $('.home').on('click',function(){location.reload(true)});
   $("#submit-input").on("click", start);
   var isDown=true;
   $('.doctor-results').on("click","h3", function(e) {
@@ -208,10 +214,8 @@ function start(event){
   
   });
 
-  $('#favorites').on('click', function() {
-    // alert("ncsjcnsjxc")
-    // $('.favorites-div').empty();
-    displayFavorites($(this).attr("data-page"));
+  $('.favorites').on('click', function() {
+    displayFavorites();
   })
 
  
