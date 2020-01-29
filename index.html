@@ -4,24 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
     <link rel="stylesheet" href="style.css">
     <script src="https://use.fontawesome.com/9cae87ff59.js"></script>
     <title>FindMyDoctor Index</title>
  </head>
 <body>
-    <div class="navbar-fixed"  id="nav-bar">
+    <div class="navbar-fixed" id="nav-bar">
         <nav>
             <div class="nav-wrapper">
-                <a id="nav-logo" class="brand-logo left">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a id="home" >Home</a></li>
-                    <li><a id="favorites" data-page="navbar">Favorites</a></li>
-                </ul>
+                <div class="container-fluid">
+                    <a id="nav-logo" class="brand-logo row">
+                        <i class="fa fa-stethoscope" id="nav-icon" aria-hidden="true"></i>
+                        FindMyDoctor
+                    </a>
+
+                    <a href="#" class="sidenav-trigger" data-target="slide-out"><i class="material-icons">menu</i></a>
+
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="home  waves-effect">Home</a></li>
+                        <li><a class="favorites  waves-effect">Favorites</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </div>
+    <ul id="slide-out" class="sidenav">
+        <li><a class="home  waves-effect sidenav-close">Home</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="favorites  waves-effect sidenav-close">Favorites</a></li>
+    </ul>
     <div class="container home-page">
         <div class="row header">
             <h2 id="title">FindMyDoctor <i class="fa fa-stethoscope" aria-hidden="true"></i></h2>
