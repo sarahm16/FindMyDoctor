@@ -14,7 +14,7 @@ $(document).ready(function () {
   let favDocs = JSON.parse(localStorage.getItem('saved-docs'));
 
   //api key for better doctor
-  let apiKey = "a078e4d5730633652f2fb1b76ce96dca";
+  let apiKey = "4836f1a91cac93b26276e955530879b9";
 
 function start(event){
   if($("#city-input").val() !== ""){
@@ -30,7 +30,7 @@ function start(event){
 
   function geocode() {
     let cityInput = $("#city-input").val().trim();
-    let geocodeURL = `https://us1.locationiq.com/v1/search.php?key=ccf3e521e0553a&q=${cityInput}&format=json`
+    let geocodeURL = `https://us1.locationiq.com/v1/search.php?key=pk.8677e62e98d340a2e38665f0dea32f41&q=${cityInput}&format=json`
     $.ajax({
       url: geocodeURL,
       method: "GET"
