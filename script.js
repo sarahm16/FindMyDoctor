@@ -4,9 +4,10 @@ $(document).ready(function () {
  $('.sidenav').sidenav(); //to initialize the side navbar fro small screens
   $("#city-input").prop('required', true);
   $('.favorites-div').hide();
-  //sets local storage
-  let emptyArray = []; 
   let pageFlag = "home";
+  let emptyArray = [];
+
+  //set local storage to empty array if local storage is not set yet
   if(localStorage.getItem('saved-docs') == undefined) {
     localStorage.setItem('saved-docs', JSON.stringify(emptyArray));
   }
@@ -15,12 +16,6 @@ $(document).ready(function () {
 
   //api key for better doctor
   let apiKey = "4836f1a91cac93b26276e955530879b9";
-
-function start(event){
-  if($("#city-input").val() !== ""){
-  event.preventDefault();
-  geocode();
-}}
 
 function start(event){
   if($("#city-input").val() !== ""){
@@ -47,15 +42,11 @@ function start(event){
   }
 
   function doctorSearch(searchLat, searchLon) {
-    /******Madhavi's changes start */
-
-    //display : none for home-page to show doctor's info on button click
     $(".home-page").css("display", "none");
     $('#nav-bar').show();
     $(".doctor-results").show();
     pageFlag = "results";
 
-    /******Madhavi's changes end */
     //Replacing the white spaces with '-'  for Speciality input entered by the user and changing the input to lowercase
     let specialtyInput =$("#specialty-input").val().trim().replace(/ /g, "-").toLowerCase();
     let cityInput = searchLat + "," + searchLon + ",10";
@@ -78,9 +69,9 @@ function start(event){
 
         for (let i = 0; i < response.data.length; i++) {
           let results = response.data[i];
-          console.log(results);
           let newDocName = $('<h3 class="row header" id="docHeader">').text(`${results.profile["first_name"]} ${results.profile["last_name"]}, MD`);
           
+          //check if doctor's practice is within desired search area
           for (let i=0; i<results.practices.length; i++) {
             console.log(results.practices[i].visit_address.zip);
             if (results.practices[i].within_search_area== true) {
@@ -112,6 +103,8 @@ function start(event){
           saveBtn.attr('class', 'align-center');
           saveBtn.attr('data-name', `${results.profile["first_name"]} ${results.profile["last_name"]}`);
 
+          //save provider information to favDocs array if provider hasn't already been saved
+          //set local storage to favDocs array
           $(saveBtn).on('click', function() {
             let favDocs_string = JSON.stringify(favDocs);
             let entry = [saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.specialties[0].uid];
@@ -121,7 +114,6 @@ function start(event){
               favDocs.push([saveBtn.attr('data-name'), results.practices[0].phones[0].number, results.specialties[0].uid]);
               localStorage.setItem('saved-docs', JSON.stringify(favDocs));
             }
-            else console.log("Duplicate");
             
           });
           
@@ -133,12 +125,8 @@ function start(event){
           $('.doctor-results').append(newDocName,docContainer);
           $('#div'+i).append(docSpec, docDescription, docClinic, docAddress, docNum, mapBtn, saveBtn, mapDiv);
         }
-        // function to open Google map for the latitude and longitude from API response. 
-      //  openGoogleMap(docLon, docLat);
       });
   }
-
- 
 
   //initialize() creates map and marker objects and returns them.
   function initialize(latitude, longitude, map_id) {
@@ -166,8 +154,8 @@ function start(event){
     }
   }
 
+  //display list of user's favorite providers
   function displayFavorites() {
-    
     let favDiv = $('.favorites-div');
     let collapsible = $('.collapsible');
     collapsible.empty();
@@ -179,11 +167,10 @@ function start(event){
       $('.doctor-results').css('display', 'none');
     }
     $('#nav-bar').show();
-    
-
     favDiv.show();
-    for (let i = 0; i < favDocs.length; i++) {
 
+    //creates list of favorite doctors and their information
+    for (let i = 0; i < favDocs.length; i++) {
       let name = favDocs[i][0];
       let specialty = favDocs[i][2];
       let phoneNumber = favDocs[i][1];
@@ -199,6 +186,7 @@ function start(event){
     }
   }
 
+  //take user to home page
   $('.home').on('click',function(){location.reload(true)});
   $("#submit-input").on("click", start);
   var isDown=true;
@@ -214,10 +202,8 @@ function start(event){
   
   });
 
+  //display favorites
   $('.favorites').on('click', function() {
     displayFavorites();
   })
-
- 
-
 });
