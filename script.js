@@ -37,6 +37,8 @@ function start(event){
         let searchLon = parseFloat(searchLonString).toFixed(3);
 
         doctorSearch(searchLat, searchLon);
+
+        console.log(response);
       })
 
   }
